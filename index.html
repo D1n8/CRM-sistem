@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="normalize.css">
+    <link rel="stylesheet" href="style.css">
+    <title>CRM</title>
+</head>
+<body>
+    <header class="header-container">
+        <h1 class="header-title">CRM-sistem</h1>
+        <img src="/logo.svg" alt="skb." class="logo">
+        <input type="text" class="header-input" placeholder="Введите запрос">
+    </header>
+    <main class="main-container">
+        <section class="clients">
+            <h2 class="clients-title">Клиенты</h2>
+            <div class="clients-table">
+                <ul class="column-headings">
+                    <li id="client-id" class="column-head">ID</li>
+                    <li id="fullname" class="column-head">Фамилия Имя Отчество</li>
+                    <li id="creation-date-time" class="column-head">Дата и время создания</li>
+                    <li id="last-change" class="column-head">Последние изменения</li>
+                    <li id="contacts" class="column-head">Контакты</li>
+                    <li id="actions" class="column-head">Действия</li>
+                </ul>
+                <ul class="clients-list"></ul>
+                <button class="add-client-btn">
+                    Добавить клиента
+                </button>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

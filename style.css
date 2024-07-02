@@ -1,0 +1,36 @@
+.header-container{
+    display: flex;
+    padding: 20px;
+    gap: 50px;
+    background-color: #fff;
+    box-shadow: 0px 9.03012px 27.0904px rgba(176, 190, 197, 0.32), 0px 3.38629px 5.64383px rgba(176, 190, 197, 0.32);
+}
+
+.header-title{
+    display: none;
+}
+
+.header-input{
+    width: 580px;
+    padding-inline: 15px;
+    color: #B0B0B0;
+    font-family: 'Open Sans';
+}
+
+.main-container{
+    padding: 50px 100px;
+}
+
+.clients-title{
+    margin-bottom: 30px;
+}
+
+.column-headings{
+    display: flex;
+}
+
+.column-head{
+    width: calc(100% / 6);
+}
+
+
