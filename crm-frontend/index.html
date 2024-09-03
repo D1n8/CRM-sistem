@@ -5,7 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="normalize.css">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="bootstrap.css">
     <title>CRM</title>
+
+    <script defer src="main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            startCRM()
+        })
+    </script>
+
 </head>
 <body>
     <header class="header-container">
@@ -18,23 +27,23 @@
             <h2 class="clients-title">Клиенты</h2>
             <table class="clients-table">
                 <tr class="column-headings">
-                    <th id="client-id" class="column-id">ID</th>
-                    <th id="fullname" class="column-data">Фамилия Имя Отчество</th>
-                    <th id="creation-date-time" class="column-data">Дата и время создания</th>
-                    <th id="last-change" class="column-data">Последние изменения</th>
-                    <th id="contacts" class="column-data">Контакты</th>
-                    <th id="actions" class="column-data">Действия</th>
+                    <th id="client-id" class="column-client">ID</th>
+                    <th id="fullname" class="column-client">Фамилия Имя Отчество</th>
+                    <th id="creation-date-time" class="column-client">Дата и время создания</th>
+                    <th id="last-change" class="column-client">Последние изменения</th>
+                    <th id="contacts" class="column-client">Контакты</th>
+                    <th id="actions" class="column-client">Действия</th>
                 </tr>
-                <tr class="row">
-                    <td class="column-id">123123123</td>
-                    <td class="column-data">123123123</td>
-                    <td class="column-data">123123123</td>
-                    <td class="column-data">123123123</td>
-                    <td class="column-data">123123123</td>
-                    <td class="column-data">123123123</td>
+                <tr class="row-client">
+                    <td class="column-client">123123123</td>
+                    <td class="column-client">123123123</td>
+                    <td class="column-client">123123123</td>
+                    <td class="column-client">123123123</td>
+                    <td class="column-client">123123123</td>
+                    <td class="column-client">123123123</td>
                 </tr>
             </table>
-            <button class="add-client-btn">
+            <button type="button" class="add-client-btn">
                 Добавить клиента
             </button>
         </section>
@@ -42,15 +51,16 @@
 
     <div class="popup popup_new-client">
         <form class="container-popup">
+            <button type="button" class="btn-close btn-close-pos" aria-label="Закрыть"></button>
             <h3 class="popup-title">Новый клиент</h3>
             <div class="container-inputs">
                 <input class="form-input" type="text" name="surname" id="new-surname" placeholder="Фамилия*">
                 <input class="form-input" type="text" name="name" id="new-name" placeholder="Имя*">
                 <input class="form-input" type="text" name="lastname" id="new-lastname" placeholder="Отчество">
             </div>
-            <button class="add">Добавить контакт</button>
-            <button class="save">Сохранить</button>
-            <button class="cancel">Отмена</button>
+            <button type="button" class="add">Добавить контакт</button>
+            <button type="button" class="save">Сохранить</button>
+            <button type="button" class="cancel">Отмена</button>
         </form>
     </div>
     <!-- чтобы вкл и выкл popup обращаться ко 2-му классу и менять display block -->
@@ -62,18 +72,18 @@
                 <input class="form-input" type="text" name="name" id="name" placeholder="Имя*">
                 <input class="form-input" type="text" name="lastname" id="lastname" placeholder="Отчество">
             </div>
-            <button class="add">Добавить контакт</button>
-            <button class="save">Сохранить</button>
-            <button class="delete">Удалить клиента</button>
+            <button type="button" class="add">Добавить контакт</button>
+            <button type="button" class="save">Сохранить</button>
+            <button type="button" class="delete">Удалить клиента</button>
         </form>
     </div>
 
-    <div class="popup">
+    <div class="popup popup_delete-client">
         <div class="container-popup">
             <h3 class="popup-title">Удалить клиента</h3>
             <span class="delete-message">Вы действительно хотите удалить данного клиента?</span>
-            <button class="popup-delete">Удалить</button>
-            <button class="cancel">Отмена</button>
+            <button type="button" class="popup-delete">Удалить</button>
+            <button type="button" class="cancel">Отмена</button>
         </div>
     </div>
 

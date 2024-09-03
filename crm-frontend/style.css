@@ -30,7 +30,7 @@
     margin-bottom: 40px;
 }
 
-.row{
+.row-client{
     display: flex;
 }
 
@@ -39,30 +39,18 @@
 
 }
 
-th{
-    border: 1px solid black;
-}
-
-td{
-    border: 1px solid black;
-}
 
 /*!!!!!!!!!!!!!!!!!*/
-.column-id{
+.column-client{
     flex: 1 0 100px;
     padding: 20px;
     text-align: center;
+    border: 1px solid black;
 }
 
-.column-data{
-    flex: 1 0 100px;
-    padding: 20px;
-    text-align: center;
-}
 /*!!!!!!!!!!!!!!!!!*/
 
 .popup{
-    display: none;
     width: 40%;
     height: 60%;
     position: fixed;
@@ -75,8 +63,20 @@ td{
     z-index: 1;
 }
 
+.popup_new-client{
+    display: none;
+}
+
+.popup_change-client{
+    display: none;
+}
+
+.popup_delete-client{
+    display: none;
+}
 
 .container-popup{
+    position: relative;
     padding: 25px 30px;
 }
 
@@ -91,4 +91,7 @@ td{
     gap: 32px;
 }
 
-
+.btn-close-pos{
+    position: absolute;
+    left: 92%;
+}
