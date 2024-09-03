@@ -10,7 +10,7 @@
 <body>
     <header class="header-container">
         <h1 class="header-title">CRM-sistem</h1>
-        <img src="/logo.svg" alt="skb." class="logo">
+        <img src="/CRM-sistem/images/logo.svg" alt="skb." class="logo">
         <input type="text" class="header-input" placeholder="Введите запрос">
     </header>
     <main class="main-container">
@@ -39,5 +39,43 @@
             </button>
         </section>
     </main>
+
+    <div class="popup popup_new-client">
+        <form class="container-popup">
+            <h3 class="popup-title">Новый клиент</h3>
+            <div class="container-inputs">
+                <input class="form-input" type="text" name="surname" id="new-surname" placeholder="Фамилия*">
+                <input class="form-input" type="text" name="name" id="new-name" placeholder="Имя*">
+                <input class="form-input" type="text" name="lastname" id="new-lastname" placeholder="Отчество">
+            </div>
+            <button class="add">Добавить контакт</button>
+            <button class="save">Сохранить</button>
+            <button class="cancel">Отмена</button>
+        </form>
+    </div>
+    <!-- чтобы вкл и выкл popup обращаться ко 2-му классу и менять display block -->
+    <div class="popup popup_change-client">
+        <form class="container-popup">
+            <h3 class="popup-title">Изменить данные</h3>
+            <div class="container-inputs">
+                <input class="form-input" type="text" name="surname" id="surname" placeholder="Фамилия*">
+                <input class="form-input" type="text" name="name" id="name" placeholder="Имя*">
+                <input class="form-input" type="text" name="lastname" id="lastname" placeholder="Отчество">
+            </div>
+            <button class="add">Добавить контакт</button>
+            <button class="save">Сохранить</button>
+            <button class="delete">Удалить клиента</button>
+        </form>
+    </div>
+
+    <div class="popup">
+        <div class="container-popup">
+            <h3 class="popup-title">Удалить клиента</h3>
+            <span class="delete-message">Вы действительно хотите удалить данного клиента?</span>
+            <button class="popup-delete">Удалить</button>
+            <button class="cancel">Отмена</button>
+        </div>
+    </div>
+
 </body>
 </html>
