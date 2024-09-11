@@ -14,12 +14,11 @@
             startCRM()
         })
     </script>
-
 </head>
 <body>
     <header class="header-container">
         <h1 class="header-title">CRM-sistem</h1>
-        <img src="/CRM-sistem/images/logo.svg" alt="skb." class="logo">
+        <img src="/images/logo.svg" alt="skb." class="logo">
         <input type="text" class="header-input" placeholder="Введите запрос">
     </header>
     <main class="main-container">
@@ -40,10 +39,40 @@
                     <td class="column-client">123123123</td>
                     <td class="column-client">123123123</td>
                     <td class="column-client">123123123</td>
-                    <td class="column-client">123123123</td>
+                    <td class="column-client">
+                        <button class="btn-action btn-change">
+                            <svg class="btn_img" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <g opacity="0.7" clip-path="url(#clip0_224_1347)">
+                                <path d="M2 11.5V14H4.5L11.8733 6.62662L9.37333 4.12662L2 11.5ZM13.8067 4.69329C14.0667 4.43329 14.0667 4.01329 13.8067 3.75329L12.2467 2.19329C11.9867 1.93329 11.5667 1.93329 11.3067 2.19329L10.0867 3.41329L12.5867 5.91329L13.8067 4.69329Z" fill="#9873FF"/>
+                                </g>
+                                <defs>
+                                <clipPath id="clip0_224_1347">
+                                <rect width="16" height="16" fill="white"/>
+                                </clipPath>
+                                </defs>
+                            </svg>
+                            Изменить
+                        </button>
+                        <button class="btn-action btn-delete">
+                            <svg class="btn_img" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <g opacity="0.7" clip-path="url(#clip0_224_1352)">
+                                <path d="M8 2C4.682 2 2 4.682 2 8C2 11.318 4.682 14 8 14C11.318 14 14 11.318 14 8C14 4.682 11.318 2 8 2ZM8 12.8C5.354 12.8 3.2 10.646 3.2 8C3.2 5.354 5.354 3.2 8 3.2C10.646 3.2 12.8 5.354 12.8 8C12.8 10.646 10.646 12.8 8 12.8ZM10.154 5L8 7.154L5.846 5L5 5.846L7.154 8L5 10.154L5.846 11L8 8.846L10.154 11L11 10.154L8.846 8L11 5.846L10.154 5Z" fill="#F06A4D"/>
+                                </g>
+                                <defs>
+                                <clipPath id="clip0_224_1352">
+                                <rect width="16" height="16" fill="white"/>
+                                </clipPath>
+                                </defs>
+                            </svg>
+                            Удалить
+                        </button>
+                    </td>
                 </tr>
             </table>
             <button type="button" class="add-client-btn">
+                <svg class="btn_img" width="23" height="16" viewBox="0 0 23 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M14.5 8C16.71 8 18.5 6.21 18.5 4C18.5 1.79 16.71 0 14.5 0C12.29 0 10.5 1.79 10.5 4C10.5 6.21 12.29 8 14.5 8ZM5.5 6V3H3.5V6H0.5V8H3.5V11H5.5V8H8.5V6H5.5ZM14.5 10C11.83 10 6.5 11.34 6.5 14V16H22.5V14C22.5 11.34 17.17 10 14.5 10Z" fill="#9873FF"/>
+                </svg>
                 Добавить клиента
             </button>
         </section>
@@ -51,28 +80,61 @@
 
     <div class="popup popup_new-client">
         <form class="container-popup">
-            <button type="button" class="btn-close btn-close-pos" aria-label="Закрыть"></button>
+            <button type="button" class="btn-close btn-close-pos btn-close-new-client" aria-label="Закрыть"></button>
             <h3 class="popup-title">Новый клиент</h3>
             <div class="container-inputs">
-                <input class="form-input" type="text" name="surname" id="new-surname" placeholder="Фамилия*">
-                <input class="form-input" type="text" name="name" id="new-name" placeholder="Имя*">
+                <input class="form-input" type="text" name="surname" id="new-surname" placeholder="Фамилия*" required>
+                <input class="form-input" type="text" name="name" id="new-name" placeholder="Имя*" required>
                 <input class="form-input" type="text" name="lastname" id="new-lastname" placeholder="Отчество">
             </div>
-            <button type="button" class="add">Добавить контакт</button>
-            <button type="button" class="save">Сохранить</button>
-            <button type="button" class="cancel">Отмена</button>
+            <div class="container-contacts-new-client">
+                <div class="box-contacts">
+                    <div class="new-contact" id="contact_0">
+                        <select class="select" name="contact">
+                            <option value="tel" selected>Телефон</option>
+                            <option value="vk">VK</option>
+                            <option value="email">Email</option>
+                            <option value="facebook">Facebook</option>
+                        </select>
+                        <input class="input-contact" type="text" name="contact-link" id="contact-link" placeholder="Введите данные">
+                        <div class="btn-erase" id="btnErase_0">
+                            <img style="margin-bottom: 5px;" src="/images/erase.svg" alt="delete">
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="add add-new-client-contact">
+                    <svg class="btn_img" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g clip-path="url(#clip0_224_8628)">
+                        <path d="M7.99998 4.66659C7.63331 4.66659 7.33331 4.96659 7.33331 5.33325V7.33325H5.33331C4.96665 7.33325 4.66665 7.63325 4.66665 7.99992C4.66665 8.36659 4.96665 8.66659 5.33331 8.66659H7.33331V10.6666C7.33331 11.0333 7.63331 11.3333 7.99998 11.3333C8.36665 11.3333 8.66665 11.0333 8.66665 10.6666V8.66659H10.6666C11.0333 8.66659 11.3333 8.36659 11.3333 7.99992C11.3333 7.63325 11.0333 7.33325 10.6666 7.33325H8.66665V5.33325C8.66665 4.96659 8.36665 4.66659 7.99998 4.66659ZM7.99998 1.33325C4.31998 1.33325 1.33331 4.31992 1.33331 7.99992C1.33331 11.6799 4.31998 14.6666 7.99998 14.6666C11.68 14.6666 14.6666 11.6799 14.6666 7.99992C14.6666 4.31992 11.68 1.33325 7.99998 1.33325ZM7.99998 13.3333C5.05998 13.3333 2.66665 10.9399 2.66665 7.99992C2.66665 5.05992 5.05998 2.66659 7.99998 2.66659C10.94 2.66659 13.3333 5.05992 13.3333 7.99992C13.3333 10.9399 10.94 13.3333 7.99998 13.3333Z" fill="#9873FF"/>
+                        </g>
+                        <defs>
+                        <clipPath id="clip0_224_8628">
+                        <rect width="16" height="16" fill="white"/>
+                        </clipPath>
+                        </defs>
+                    </svg>
+                    Добавить контакт
+                </button>
+            </div>
+            <div class="box-btns">
+                <button type="button" class="save">Сохранить</button>
+                <button type="button" class="cancel">Отмена</button>
+            </div>
         </form>
     </div>
     <!-- чтобы вкл и выкл popup обращаться ко 2-му классу и менять display block -->
     <div class="popup popup_change-client">
         <form class="container-popup">
+            <button type="button" class="btn-close btn-close-pos btn-close-change-client" aria-label="Закрыть"></button>
             <h3 class="popup-title">Изменить данные</h3>
             <div class="container-inputs">
                 <input class="form-input" type="text" name="surname" id="surname" placeholder="Фамилия*">
                 <input class="form-input" type="text" name="name" id="name" placeholder="Имя*">
                 <input class="form-input" type="text" name="lastname" id="lastname" placeholder="Отчество">
             </div>
-            <button type="button" class="add">Добавить контакт</button>
+            <div class="container-contacts-change-client">
+                <button type="button" class="add add-change-client">Добавить контакт</button>
+            </div>
             <button type="button" class="save">Сохранить</button>
             <button type="button" class="delete">Удалить клиента</button>
         </form>
@@ -80,6 +142,7 @@
 
     <div class="popup popup_delete-client">
         <div class="container-popup">
+            <button type="button" class="btn-close btn-close-pos btn-close-delete-client" aria-label="Закрыть"></button>
             <h3 class="popup-title">Удалить клиента</h3>
             <span class="delete-message">Вы действительно хотите удалить данного клиента?</span>
             <button type="button" class="popup-delete">Удалить</button>
