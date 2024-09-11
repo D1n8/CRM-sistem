@@ -1,5 +1,14 @@
 (() => {
     let counterId = 1
+    let clientsArr = [
+        {
+            id: '1234567890',
+            createdAt: '2021-02-03T13:07:29.554Z',
+            updatedAt: '2021-02-03T13:07:29.554Z',
+            name: 'Василий',
+            surname: 'Пупкин',
+            lastName: 'Васильевич'
+        }]
 
     function addPopupToBtn(nameBtn, namePopupClass, nameCloseBtn){
         let btn = document.querySelector(`.${nameBtn}`)
@@ -73,6 +82,7 @@
             box.append(newContact)
 
             btnContactErase(btnBox.getAttribute('id'), newContact.getAttribute('id'))
+            btnContactErase('btnErase_0', 'contact_0')
         })
     }
 
@@ -98,17 +108,71 @@
         return surname.trim() ==! '' && name.trim() ==! ''
     }
 
+    function createClient(obj) {
+        let box = document.createElement('tr')
+        let clientId = document.createElement('td')
+        let fullname = document.createElement('td')
+        let creationTime = document.createElement('td')
+        let lastChangeTime = document.createElement('td')
+        let contacts = document.createElement('td')
+        let actions = document.createElement('td')
+        let btnChange = document.createElement('button')
+        let btnDelete = document.createElement('button')
+        let imgChange = document.createElement('img')
+        let imgDelete = document.createElement('img')
+
+        clientId.classList.add('column-client')
+        fullname.classList.add('column-client')
+        creationTime.classList.add('column-client')
+        lastChangeTime.classList.add('column-client')
+        contacts.classList.add('column-client')
+        actions.classList.add('column-client')
+        box.classList.add('row-client')
+
+        btnChange.classList.add('btn-action', 'btn-change')
+        btnDelete.classList.add('btn-action', 'btn-delete')
+        imgChange.setAttribute('src', '/images/change.svg')
+        imgChange.setAttribute('alt', 'change')
+        imgChange.setAttribute('style', 'margin-bottom: 5px;')
+        imgDelete.setAttribute('src', '/images/delete.svg')
+        imgDelete.setAttribute('alt', 'delete')
+        imgDelete.setAttribute('style', 'margin-bottom: 5px;')
+        btnChange.append(imgChange, 'Изменить')
+        btnDelete.append(imgDelete, 'Удалить')
+
+        clientId.textContent = obj.id
+        fullname.textContent = `${obj.surname} ${obj.name} ${obj.lastName}`
+        creationTime.textContent = obj.createdAt
+        lastChangeTime.textContent = obj.updatedAt
+        // contacts !!!
+
+        actions.append(btnChange, btnDelete)
+        box.append(clientId, fullname, creationTime, lastChangeTime, contacts, actions)
+
+        return box
+    }
+
+    function printClients(clientsArr) {
+        let clientsList = document.querySelector('.clients-table')
+        for (const client of clientsArr) {
+            let newClient = createClient(client)
+            clientsList.append(newClient)
+        }
+    }
+
     function startCRM(){
-        let clientName = document.getElementById('new-name')
-        let clientSurname = document.getElementById('new-surname')
-        let clientLastName = document.getElementById('new-lastname')
 
         addPopupToBtn('add-client-btn', 'popup_new-client', 'btn-close-new-client')
         addPopupToBtn('btn-change', 'popup_change-client', 'btn-close-change-client')
         addPopupToBtn('btn-delete', 'popup_delete-client', 'btn-close-delete-client')
 
         btnAddContact('add-new-client-contact', 'box-contacts')
-        btnContactErase('btnErase_0', 'contact_0')
+
+        let btnSaveAndAddClient = document.getElementById('btnSaveAndAddClient')
+        btnSaveAndAddClient.addEventListener('click', function() {
+            printClients(clientsArr)
+        })
+
 
         // validationForm(clientSurname.value, clientName.value)
     }

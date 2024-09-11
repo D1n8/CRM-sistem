@@ -107,10 +107,6 @@
     background-color: transparent;
 }
 
-.btn_img{
-    margin-bottom: 5px;
-}
-
 .add-client-btn{
     padding: 14px 27px;
     color: var(--purple);
