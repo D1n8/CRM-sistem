@@ -1,26 +1,8 @@
 (() => {
     let counterId = 1
-    let clientsArr = [
-        {
-            id: '1234567890',
-            createdAt: '2021-02-03T13:07:29.554Z',
-            updatedAt: '2021-02-03T13:07:29.554Z',
-            name: 'Василий',
-            surname: 'Пупкин',
-            lastName: 'Васильевич'
-        }]
-
-    function addPopupToBtn(nameBtn, namePopupClass, nameCloseBtn){
-        let btn = document.querySelector(`.${nameBtn}`)
-        let popup = document.querySelector(`.${namePopupClass}`)
-        let closeBtn = document.querySelector(`.${nameCloseBtn}`)
-        btn.addEventListener('click', function() {
-            popup.classList.remove(`${namePopupClass}`)
-        })
-        closeBtn.addEventListener('click', function() {
-            popup.classList.add(`${namePopupClass}`)
-        })
-    }
+    let clientCounterId = 0
+    let clientsArr = []
+    let clientIdToActions
 
     function btnContactErase(btnEraseId, contactId){
         let btnErase = document.getElementById(btnEraseId)
@@ -36,10 +18,20 @@
     }
 
     function setBtnEraseId() {
-        return `btnErase_${++counterId}`
+        return `btnErase_${counterId++}`
+    }
+
+    function setBtnChangeId() {
+        return `change_${clientCounterId}`
+    }
+
+    function setBtnDeleteId() {
+        return `delete_${clientCounterId++}`
     }
 
     function btnAddContact(nameBtn, nameBox){
+        btnContactErase('btnErase_0', 'contact_0')
+
         let btn = document.querySelector(`.${nameBtn}`)
         let box = document.querySelector(`.${nameBox}`)
         btn.addEventListener('click', function() {
@@ -82,7 +74,6 @@
             box.append(newContact)
 
             btnContactErase(btnBox.getAttribute('id'), newContact.getAttribute('id'))
-            btnContactErase('btnErase_0', 'contact_0')
         })
     }
 
@@ -131,6 +122,8 @@
 
         btnChange.classList.add('btn-action', 'btn-change')
         btnDelete.classList.add('btn-action', 'btn-delete')
+        btnChange.setAttribute('id', setBtnChangeId())
+        btnDelete.setAttribute('id', setBtnDeleteId())
         imgChange.setAttribute('src', '/images/change.svg')
         imgChange.setAttribute('alt', 'change')
         imgChange.setAttribute('style', 'margin-bottom: 5px;')
@@ -149,7 +142,43 @@
         actions.append(btnChange, btnDelete)
         box.append(clientId, fullname, creationTime, lastChangeTime, contacts, actions)
 
+        openPopup(btnChange, 'popup_change-client', 'btn-close-change-client')
+        openPopup(btnDelete, 'popup_delete-client', 'btn-close-delete-client')
+        closePopup(document.getElementById('delete-client-cancel'), document.querySelector('.popup_delete-client'), 'popup_delete-client')
+        // btnDeleteClient(document.querySelector('.popup-delete'), clientIdToActions)
         return box
+    }
+
+    function btnDeleteClient(btn, clientId) {
+        btn.addEventListener('click', async function() {
+            await fetch(`http://localhost:3000/api/client/${clientId}`, {
+                method: 'DELETE'
+            })
+        })
+
+        closePopup(document.querySelector('.popup-delete'), document.querySelector('.popup_delete-client'), 'popup_delete-client')
+    }
+
+    function openPopup(btn, namePopupClass, nameCloseBtn){
+        let popup = document.querySelector(`.${namePopupClass}`)
+        let closeBtn = document.querySelector(`.${nameCloseBtn}`)
+        btn.addEventListener('click', function() {
+            popup.classList.remove(`${namePopupClass}`)
+        })
+        closePopup(closeBtn, popup, namePopupClass)
+    }
+
+    function closePopup(closeBtn, popup, namePopupClass) {
+        closeBtn.addEventListener('click', function() {
+            popup.classList.add(`${namePopupClass}`)
+        })
+    }
+
+    function clearClientsTable(table) {
+        const rowsCount =  table.rows.length - 1
+        for (let i = 0; i < rowsCount; i++) {
+            table.deleteRow(1)
+        }
     }
 
     function printClients(clientsArr) {
@@ -160,17 +189,46 @@
         }
     }
 
-    function startCRM(){
+    async function loadClientsArr(){
+        const response = await fetch('http://localhost:3000/api/clients')
+        clientsArr = await response.json()
+        clearClientsTable(document.querySelector('table'))
+        printClients(clientsArr)
+    }
 
-        addPopupToBtn('add-client-btn', 'popup_new-client', 'btn-close-new-client')
-        addPopupToBtn('btn-change', 'popup_change-client', 'btn-close-change-client')
-        addPopupToBtn('btn-delete', 'popup_delete-client', 'btn-close-delete-client')
+    function getContacts() {
+        return []
+    }
+
+    function startCRM(){
+        openPopup(document.querySelector('.add-client-btn'), 'popup_new-client', 'btn-close-new-client')
+        closePopup(document.getElementById('add-client-cancel'), document.querySelector('.popup_new-client'), 'popup_new-client')
 
         btnAddContact('add-new-client-contact', 'box-contacts')
 
+        loadClientsArr()
+
         let btnSaveAndAddClient = document.getElementById('btnSaveAndAddClient')
-        btnSaveAndAddClient.addEventListener('click', function() {
-            printClients(clientsArr)
+        let clientName = document.getElementById('new-name')
+        let clientSurname = document.getElementById('new-surname')
+        let clientLastName = document.getElementById('new-lastname')
+        let clientContacts = getContacts()
+
+        btnSaveAndAddClient.addEventListener('click', async function(e) {
+            e.preventDefault()
+
+            const response = await fetch('http://localhost:3000/api/clients', {
+                method: 'POST',
+                body: JSON.stringify({
+                    name: clientName.value.trim(),
+                    surname: clientSurname.value.trim(),
+                    lastName: clientLastName.value.trim(),
+                    contacts: clientContacts
+                }),
+                headers: { 'Content-Type': 'application/json'}
+            })
+
+            loadClientsArr()
         })
 
 
