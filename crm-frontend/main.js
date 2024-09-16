@@ -2,7 +2,7 @@
     let counterId = 1
     let clientCounterId = 0
     let clientsArr = []
-    let clientIdToActions
+    let clientIdToActions = 0
 
     function btnContactErase(btnEraseId, contactId){
         let btnErase = document.getElementById(btnEraseId)
@@ -135,31 +135,43 @@
 
         clientId.textContent = obj.id
         fullname.textContent = `${obj.surname} ${obj.name} ${obj.lastName}`
-        creationTime.textContent = obj.createdAt
-        lastChangeTime.textContent = obj.updatedAt
+        creationTime.textContent = obj.createdAt.slice(0, -5).replace('T', ' ')
+        lastChangeTime.textContent = obj.updatedAt.slice(0, -5).replace('T', ' ')
         // contacts !!!
 
         actions.append(btnChange, btnDelete)
         box.append(clientId, fullname, creationTime, lastChangeTime, contacts, actions)
 
-        openPopup(btnChange, 'popup_change-client', 'btn-close-change-client')
-        openPopup(btnDelete, 'popup_delete-client', 'btn-close-delete-client')
+        openActionPopup(btnChange, 'popup_change-client', 'btn-close-change-client', obj.id)
+        openActionPopup(btnDelete, 'popup_delete-client', 'btn-close-delete-client', obj.id)
         closePopup(document.getElementById('delete-client-cancel'), document.querySelector('.popup_delete-client'), 'popup_delete-client')
-        // btnDeleteClient(document.querySelector('.popup-delete'), clientIdToActions)
+        btnDeleteClient(document.querySelector('.popup-delete'))
+
         return box
     }
 
-    function btnDeleteClient(btn, clientId) {
+    function btnDeleteClient(btn) {
         btn.addEventListener('click', async function() {
-            await fetch(`http://localhost:3000/api/client/${clientId}`, {
-                method: 'DELETE'
+            let id = clientIdToActions
+            await fetch(`http://localhost:3000/api/clients/${id}`, {
+                method: 'DELETE',
             })
+            loadClientsArr()
         })
-
         closePopup(document.querySelector('.popup-delete'), document.querySelector('.popup_delete-client'), 'popup_delete-client')
     }
 
-    function openPopup(btn, namePopupClass, nameCloseBtn){
+    function openActionPopup(btn, namePopupClass, nameCloseBtn, id) {
+        let popup = document.querySelector(`.${namePopupClass}`)
+        let closeBtn = document.querySelector(`.${nameCloseBtn}`)
+        btn.addEventListener('click', function() {
+            popup.classList.remove(`${namePopupClass}`)
+            clientIdToActions = id
+        })
+        closePopup(closeBtn, popup, namePopupClass)
+    }
+
+    function openAddPopup(btn, namePopupClass, nameCloseBtn){
         let popup = document.querySelector(`.${namePopupClass}`)
         let closeBtn = document.querySelector(`.${nameCloseBtn}`)
         btn.addEventListener('click', function() {
@@ -197,11 +209,16 @@
     }
 
     function getContacts() {
-        return []
+        let inputs = document.getElementsByClassName('.input-contact')
+        let result = []
+        for (let i = 0; i < inputs.length; i++) {
+            result.push(inputs[i])
+        }
+        return result
     }
 
     function startCRM(){
-        openPopup(document.querySelector('.add-client-btn'), 'popup_new-client', 'btn-close-new-client')
+        openAddPopup(document.querySelector('.add-client-btn'), 'popup_new-client', 'btn-close-new-client')
         closePopup(document.getElementById('add-client-cancel'), document.querySelector('.popup_new-client'), 'popup_new-client')
 
         btnAddContact('add-new-client-contact', 'box-contacts')
